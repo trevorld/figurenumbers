@@ -1,0 +1,23 @@
+Package: figurenumbers
+Type: Package
+Title: Generate Mathematical Figure Number Puzzles
+Version: 0.1.0-1
+Authors@R: c(person("Trevor L.", "Davis", role = c("aut", "cre"),
+                    email = "trevor.l.davis@gmail.com",
+                    comment = c(ORCID = "0000-0001-6341-4639")))
+Description: Generate mathematical figure number puzzles.
+URL: https://trevorldavis.com/R/figurenumbers/
+BugReports: https://github.com/trevorld/figurenumbers/issues
+License: MIT + file LICENSE
+Depends:
+    R (>= 4.1.0)
+Imports:
+    grDevices,
+    grid
+Suggests:
+    testthat (>= 3.0.0),
+    vdiffr
+Encoding: UTF-8
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
+Roxygen: list(markdown = TRUE)
