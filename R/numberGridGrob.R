@@ -7,12 +7,16 @@
 #' and the top with the numbers 1, 2, ..., 10.
 #' It is intended to be drawn within a square viewport.
 #'
+#' @param segments A list of numeric vectors of numbers from 1 to 100.
+#'                 For each numeric vector we'll draw line segments
+#'                 between each (consecutive) number in that vector
+#'                 (as mapped to the points in the number grid).
 #' @param r Radius of the circles.
 #' @param gp A [grid::gpar()] object.
 #' @param name A character identifier (for the grob).
 #' @param vp A [grid::viewport()] object (or `NULL`).
 #' @return A [grid::gTree()] object.
-#' @importFrom grid circleGrob gList gpar gTree textGrob unit
+#' @importFrom grid circleGrob gList gpar gTree segmentsGrob textGrob unit
 #' @examples
 #' if (require("grid", quietly = TRUE)) {
 #'     grid.newpage()
@@ -21,11 +25,14 @@
 #' }
 #' @export
 numberGridGrob <- function(
+	segments = list(),
 	r = unit(0.005, "snpc"),
-	gp = gpar(col = "black", fill = "black"),
+	gp = gpar(col = "black", fill = "black", lwd = 2),
 	name = NULL,
 	vp = NULL
 ) {
+	stopifnot("`segments` must be a list" = is.list(segments))
+
 	# 10x10 grid of circles within [0.1, 0.9] x [0.1, 0.9]
 	# leaving margins for the labels
 	cell <- 0.08
@@ -60,8 +67,25 @@ numberGridGrob <- function(
 		name = "top_labels"
 	)
 
+	# map the numbers 1 to 100 (in reading order) to grid coordinates
+	number2x <- function(n) x_col[(n - 1) %% 10 + 1]
+	number2y <- function(n) y_row[(n - 1) %/% 10 + 1]
+	from <- unlist(lapply(segments, function(n) n[-length(n)]))
+	to <- unlist(lapply(segments, function(n) n[-1L]))
+	children <- gList(circles, left, right, top)
+	if (length(from)) {
+		lines <- segmentsGrob(
+			x0 = number2x(from),
+			y0 = number2y(from),
+			x1 = number2x(to),
+			y1 = number2y(to),
+			name = "segments"
+		)
+		children <- gList(lines, circles, left, right, top)
+	}
+
 	gTree(
-		children = gList(circles, left, right, top),
+		children = children,
 		gp = gp,
 		name = name,
 		vp = vp,

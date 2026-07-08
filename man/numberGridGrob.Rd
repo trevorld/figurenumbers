@@ -5,13 +5,19 @@
 \title{Number grid grob}
 \usage{
 numberGridGrob(
+  segments = list(),
   r = unit(0.005, "snpc"),
-  gp = gpar(col = "black", fill = "black"),
+  gp = gpar(col = "black", fill = "black", lwd = 2),
   name = NULL,
   vp = NULL
 )
 }
 \arguments{
+\item{segments}{A list of numeric vectors of numbers from 1 to 100.
+For each numeric vector we'll draw line segments
+between each (consecutive) number in that vector
+(as mapped to the points in the number grid).}
+
 \item{r}{Radius of the circles.}
 
 \item{gp}{A \code{\link[grid:gpar]{grid::gpar()}} object.}
