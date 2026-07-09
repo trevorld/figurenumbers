@@ -1,0 +1,48 @@
+# figurenumbers
+
+[![CRAN Status Badge](https://www.r-pkg.org/badges/version/figurenumbers)](https://cran.r-project.org/package=figurenumbers)
+[![R-CMD-check](https://github.com/trevorld/figurenumbers/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/trevorld/figurenumbers/actions)
+[![Coverage Status](https://codecov.io/gh/trevorld/figurenumbers/branch/main/graph/badge.svg)](https://app.codecov.io/gh/trevorld/figurenumbers)
+
+### Table of Contents
+
+* [Overview](#overview)
+* [Installation](#installation)
+* [Examples](#examples)
+
+## <a name="overview">Overview</a>
+
+`{figurenumbers}` generates "connect-the-dots via math" puzzle booklets
+in the style of the out-of-print *Calc-U-Draw* workbooks.  A picture is
+defined as an ordered sequence of points on a 10x10 grid of the numbers
+1 to 100.  Solve the first arithmetic problem and its answer is the
+first point; solve the next problem and connect its point to the
+previous one; and so on until the picture is revealed.
+
+Each puzzle page is a landscape "bifold" (a landscape sheet folded once
+vertically into two facing panels) with long-form arithmetic problems
+on one panel and the number grid on the other.
+
+## <a name="installation">Installation</a>
+
+```{r install, eval = FALSE}
+remotes::install_github("trevorld/figurenumbers")
+```
+
+## <a name="examples">Examples</a>
+
+Create a printable PDF of the bundled "capital X (with slab serifs)"
+puzzle.  We use `cairo_pdf()` since it more gracefully handles any
+Unicode in puzzle credits than `pdf()`:
+
+```{r example, eval = FALSE}
+library("figurenumbers")
+library("grid")
+
+puzzle <- read_puzzles()[[1L]] # the letter X (with slab serifs)
+
+set.seed(42) # problem generation is random; set a seed to recreate a page
+cairo_pdf("letter_x.pdf", width = 11, height = 8.5) # landscape letter
+grid.draw(puzzleGrob(puzzle$segments))
+invisible(dev.off())
+```
