@@ -54,35 +54,25 @@ A \code{\link[grid:gTree]{grid::gTree()}} object.
 }
 \description{
 \code{puzzleGrob()} creates a grid grob of a complete puzzle page:
-arithmetic problems (see \code{\link[=generate_math_problems]{generate_math_problems()}}) on the left panel
-and the number grid (see \code{\link[=numberGridGrob]{numberGridGrob()}}) on the right panel of a
-landscape bifold page (i.e. a landscape sheet folded once vertically
-into two facing panels, e.g. two 5.5" x 8.5" panels for letter paper).
+arithmetic problems (see \code{\link[=generate_math_problems]{generate_math_problems()}}) on one side
+and the number grid (see \code{\link[=numberGridGrob]{numberGridGrob()}}) on the other side of a
+landscape page.
 }
 \details{
-The first element of \code{segments} is the picture's point sequence: it is
-used to generate one math problem per point (in order) but is \emph{not}
-drawn in the number grid -- connecting those points is the puzzle.
-Any later elements of \code{segments} are drawn in the grid as pre-drawn
-line segments.
-
 The math problems are randomly generated using \code{seed} (via
-\code{\link[withr:local_seed]{withr::local_seed()}}, so the caller's random number generator state
+\code{\link[withr:with_seed]{withr::with_seed()}}, so the caller's random number generator state
 is left undisturbed).  The page is annotated in the bottom corner of
 the number-grid panel with \code{hash} (if any) and the \code{seed} so an
 exact page can be recreated later.
 }
 \examples{
-if (require("grid", quietly = TRUE)) {
-    house <- c(63, 67, 37, 15, 33, 63)
-    door <- c(65, 45, 46, 66)
-    grid.newpage()
-    grid.draw(puzzleGrob(list(house, door), seed = 42))
-}
-\dontrun{
-# a landscape letter PDF ready to print and fold
-pdf("puzzle.pdf", width = 11, height = 8.5)
-grid::grid.draw(puzzleGrob(list(house, door), seed = 42))
-dev.off()
+# a landscape letter PDF ready to print
+if (isTRUE(capabilities("cairo")) && require("grid")) {
+    puzzle <- read_puzzles()$rook
+    f <- tempfile(fileext = ".pdf")
+    cairo_pdf(f, width = 11, height = 8.5) # landscape letter
+    grid.draw(puzzleGrob(puzzle$segments, seed = 42, hash = puzzle$hash))
+    invisible(dev.off())
+    unlink(f)
 }
 }

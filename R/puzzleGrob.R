@@ -1,16 +1,9 @@
 #' Puzzle page grob
 #'
 #' `puzzleGrob()` creates a grid grob of a complete puzzle page:
-#' arithmetic problems (see [generate_math_problems()]) on the left panel
-#' and the number grid (see [numberGridGrob()]) on the right panel of a
-#' landscape bifold page (i.e. a landscape sheet folded once vertically
-#' into two facing panels, e.g. two 5.5" x 8.5" panels for letter paper).
-#'
-#' The first element of `segments` is the picture's point sequence: it is
-#' used to generate one math problem per point (in order) but is *not*
-#' drawn in the number grid -- connecting those points is the puzzle.
-#' Any later elements of `segments` are drawn in the grid as pre-drawn
-#' line segments.
+#' arithmetic problems (see [generate_math_problems()]) on one side
+#' and the number grid (see [numberGridGrob()]) on the other side of a
+#' landscape page.
 #'
 #' The math problems are randomly generated using `seed` (via
 #' [withr::with_seed()], so the caller's random number generator state
@@ -43,17 +36,14 @@
 #' @return A [grid::gTree()] object.
 #' @importFrom grid gList gpar gTree textGrob unit viewport vpStack
 #' @examples
-#' if (require("grid", quietly = TRUE)) {
-#'     house <- c(63, 67, 37, 15, 33, 63)
-#'     door <- c(65, 45, 46, 66)
-#'     grid.newpage()
-#'     grid.draw(puzzleGrob(list(house, door), seed = 42))
-#' }
-#' \dontrun{
-#' # a landscape letter PDF ready to print and fold
-#' pdf("puzzle.pdf", width = 11, height = 8.5)
-#' grid::grid.draw(puzzleGrob(list(house, door), seed = 42))
-#' dev.off()
+#' # a landscape letter PDF ready to print
+#' if (isTRUE(capabilities("cairo")) && require("grid")) {
+#'     puzzle <- read_puzzles()$rook
+#'     f <- tempfile(fileext = ".pdf")
+#'     cairo_pdf(f, width = 11, height = 8.5) # landscape letter
+#'     grid.draw(puzzleGrob(puzzle$segments, seed = 42, hash = puzzle$hash))
+#'     invisible(dev.off())
+#'     unlink(f)
 #' }
 #' @export
 puzzleGrob <- function(

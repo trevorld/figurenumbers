@@ -25,9 +25,7 @@ allowing more than two operands per problem), and \code{target}.
 }
 \description{
 \code{generate_math_problems()} generates one problem per target answer,
-numbered in order.  This is intended to produce the left-hand
-("problems") panel matching a sequence of grid points on the
-right-hand panel (see \code{\link[=numberGridGrob]{numberGridGrob()}}).
+numbered in order.
 }
 \examples{
 set.seed(42)

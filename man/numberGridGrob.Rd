@@ -43,4 +43,10 @@ if (require("grid", quietly = TRUE)) {
     vp <- viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
     grid.draw(numberGridGrob(vp = vp))
 }
+if (require("grid", quietly = TRUE)) {
+    grid.newpage()
+    puzzle <- read_puzzles()$letter_x
+    vp <- viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
+    grid.draw(numberGridGrob(segments = puzzle$segments, vp = vp))
+}
 }

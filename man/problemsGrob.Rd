@@ -45,10 +45,10 @@ column/row grid filling a \verb{[0, 1] x [0, 1]} viewport.
 }
 \examples{
 if (require("grid", quietly = TRUE)) {
-    set.seed(42)
-    problems <- generate_math_problems(c(34, 37, 67, 64, 34))
+    targets <- c(34, 37, 67, 64, 34, 96)
+    problems <- withr::with_seed(42, generate_math_problems(targets))
     grid.newpage()
-    vp <- viewport(width = unit(5, "in"), height = unit(7.5, "in"))
+    vp <- viewport(width = unit(5, "in"), height = unit(7, "in"), just = "top")
     grid.draw(problemsGrob(problems, vp = vp))
 }
 }

@@ -76,9 +76,7 @@ valid_factors <- function(target, max_factor = 12L) {
 #' Generate a numbered sequence of arithmetic problems
 #'
 #' `generate_math_problems()` generates one problem per target answer,
-#' numbered in order.  This is intended to produce the left-hand
-#' ("problems") panel matching a sequence of grid points on the
-#' right-hand panel (see [numberGridGrob()]).
+#' numbered in order.
 #'
 #' @param targets Integer vector of desired answers (1-100), in the order
 #'                the problems should be numbered.
