@@ -25,9 +25,9 @@
 #' puzzles <- read_puzzles()
 #' names(puzzles)
 #' if (require("grid", quietly = TRUE)) {
-#'     set.seed(42)
+#'     puzzle <- puzzles$letter_x
 #'     grid.newpage()
-#'     grid.draw(puzzleGrob(puzzles$letter_x$segments))
+#'     grid.draw(puzzleGrob(puzzle$segments, seed = 42, hash = puzzle$hash))
 #' }
 #' @export
 read_puzzles <- function(

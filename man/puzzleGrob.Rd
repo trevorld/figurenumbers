@@ -8,6 +8,8 @@ puzzleGrob(
   segments,
   op = "auto",
   max_factor = 12L,
+  seed = sample.int(1000000L, 1L),
+  hash = NULL,
   problems_side = c("left", "right"),
   margin = unit(0.25, "in"),
   gp = gpar(col = "black", fill = "black", lwd = 2),
@@ -22,6 +24,15 @@ math problems are generated from; any later elements
 are drawn in the number grid.}
 
 \item{op, max_factor}{Passed to \code{\link[=generate_math_problems]{generate_math_problems()}}.}
+
+\item{seed}{Random seed used to generate the math problems (and
+included in the page annotation).  The default picks a
+random one.}
+
+\item{hash}{A short identifier included in the page annotation, e.g.
+the \code{hash} element added by \code{\link[=read_puzzles]{read_puzzles()}} (which
+identifies the puzzle without spoiling the picture), or
+\code{NULL} to omit.}
 
 \item{problems_side}{Which panel the math problems go on: \code{"left"}
 (default, so a right-handed kid drawing on the
@@ -55,21 +66,23 @@ drawn in the number grid -- connecting those points is the puzzle.
 Any later elements of \code{segments} are drawn in the grid as pre-drawn
 line segments.
 
-The math problems are randomly generated so use \code{\link[=set.seed]{set.seed()}} first
-for reproducible pages.
+The math problems are randomly generated using \code{seed} (via
+\code{\link[withr:local_seed]{withr::local_seed()}}, so the caller's random number generator state
+is left undisturbed).  The page is annotated in the bottom corner of
+the number-grid panel with \code{hash} (if any) and the \code{seed} so an
+exact page can be recreated later.
 }
 \examples{
 if (require("grid", quietly = TRUE)) {
-    set.seed(42)
     house <- c(63, 67, 37, 15, 33, 63)
     door <- c(65, 45, 46, 66)
     grid.newpage()
-    grid.draw(puzzleGrob(list(house, door)))
+    grid.draw(puzzleGrob(list(house, door), seed = 42))
 }
 \dontrun{
 # a landscape letter PDF ready to print and fold
 pdf("puzzle.pdf", width = 11, height = 8.5)
-grid::grid.draw(puzzleGrob(list(house, door)))
+grid::grid.draw(puzzleGrob(list(house, door), seed = 42))
 dev.off()
 }
 }

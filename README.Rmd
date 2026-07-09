@@ -41,8 +41,9 @@ library("grid")
 
 puzzle <- read_puzzles()$letter_x # the letter X (with slab serifs)
 
-set.seed(42) # problem generation is random; set a seed to recreate a page
+# the page is annotated with the puzzle `hash` and the `seed` used to
+# generate the (random) math problems so an exact page can be recreated
 cairo_pdf("letter_x.pdf", width = 11, height = 8.5) # landscape letter
-grid.draw(puzzleGrob(puzzle$segments))
+grid.draw(puzzleGrob(puzzle$segments, seed = 42, hash = puzzle$hash))
 invisible(dev.off())
 ```
