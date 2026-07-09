@@ -20,3 +20,9 @@
   segments:
     - [11, 14, 24, 35, 26, 16, 19, 29, 28, 46, 68, 69, 79, 76, 66,
        55, 64, 74, 71, 61, 62, 44, 22, 21, 11]
+- label: rook
+  credits: Adapted from the Dotaro Font project's chess rook glyph (U+265C)
+  segments:
+    - [32, 31, 11, 13, 23, 24, 14, 16, 26, 27, 17, 19, 39, 32, 72,
+       71, 91, 99, 79, 78, 38]
+    - [72, 78]
