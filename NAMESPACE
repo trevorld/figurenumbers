@@ -2,6 +2,7 @@
 
 export(generate_math_problems)
 export(numberGridGrob)
+export(problemsGrob)
 importFrom(grid,circleGrob)
 importFrom(grid,gList)
 importFrom(grid,gTree)

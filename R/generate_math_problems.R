@@ -56,7 +56,9 @@ multiply_problem <- function(target, max_factor = 12L) {
 	factors <- valid_factors(target, max_factor)
 	stopifnot("no factor pair (<= `max_factor`) multiplies to `target`" = !is.null(factors))
 	i <- sample(length(factors$a), 1L)
-	list(op = "multiply", operands = c(factors$a[i], factors$b[i]), target = target)
+	# larger operand first so long-form stacking puts it on top
+	operands <- sort(c(factors$a[i], factors$b[i]), decreasing = TRUE)
+	list(op = "multiply", operands = operands, target = target)
 }
 
 # Returns `NULL` if `target` has no factor pair a * b == target with

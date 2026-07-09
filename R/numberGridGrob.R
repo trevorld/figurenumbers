@@ -89,6 +89,6 @@ numberGridGrob <- function(
 		gp = gp,
 		name = name,
 		vp = vp,
-		cls = "number_grid_grob"
+		cl = "number_grid_grob"
 	)
 }
