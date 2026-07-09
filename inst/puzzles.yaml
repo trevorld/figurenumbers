@@ -1,0 +1,18 @@
+# Puzzle definitions for the figurenumbers package.
+#
+# Each puzzle is a map with:
+#   label:    human-readable name (may spoil the picture!)
+#   segments: a list of point sequences (numbers 1-100 on the grid,
+#             in reading order).  The first sequence is the hidden
+#             picture the math problems are generated from; any later
+#             sequences are pre-drawn in the number grid.
+#   credits:  image source attribution (optional; may spoil the picture
+#             so perhaps best rendered on a credits/solution page).
+#
+# More fields may be added later (e.g. pre-drawn decorations such as
+# circles for animal eyes).
+- label: The letter X (with slab serifs)
+  credits: ~
+  segments:
+    - [11, 14, 24, 35, 26, 16, 19, 29, 28, 46, 68, 69, 79, 76, 66,
+       55, 64, 74, 71, 61, 62, 44, 22, 21, 11]
