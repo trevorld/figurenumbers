@@ -7,3 +7,5 @@ tmp
 data-raw/*jpeg
 revdep/
 tests/testthat/Rplots.pdf
+*.pdf
+*.md
