@@ -12,8 +12,8 @@ read_puzzles(
 \item{file}{Path to a YAML file of puzzle definitions.}
 }
 \value{
-A list of puzzles (each a list with at least \code{label} and
-\code{segments} elements).
+A list of puzzles named by their labels (each puzzle a list
+with at least \code{label}, \code{segments}, and \code{hash} elements).
 }
 \description{
 \code{read_puzzles()} reads puzzle definitions from a YAML file,
@@ -21,18 +21,26 @@ defaulting to the puzzles bundled with this package.
 }
 \details{
 Each puzzle is a list with a \code{label} (human-readable name, which may
-spoil the picture), \code{segments} (a list of point sequences suitable
+spoil the picture; restricted to ASCII alphanumerics plus \verb{_} and
+\code{.} starting with a letter, since it is also used as the puzzle's
+name in the returned list where such names are convenient to use),
+\code{segments} (a list of point sequences suitable
 for passing straight to \code{\link[=puzzleGrob]{puzzleGrob()}}: the first is the hidden
 picture the math problems are generated from and any later ones are
 pre-drawn in the number grid), and \code{credits} (image source
 attribution, if any).  More fields may be added later.
+
+\code{read_puzzles()} additionally adds a \code{hash} element to each puzzle
+(a short \code{\link[digest:digest]{digest::digest()}} of its entire YAML entry, not stored in
+the file) which can be used to annotate a puzzle without spoiling
+the picture, e.g. to match a puzzle page to a solution/credits page.
 }
 \examples{
 puzzles <- read_puzzles()
-vapply(puzzles, `[[`, character(1L), "label")
+names(puzzles)
 if (require("grid", quietly = TRUE)) {
     set.seed(42)
     grid.newpage()
-    grid.draw(puzzleGrob(puzzles[[1L]]$segments))
+    grid.draw(puzzleGrob(puzzles$letter_x$segments))
 }
 }
