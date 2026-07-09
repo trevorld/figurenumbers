@@ -8,6 +8,7 @@ puzzleGrob(
   segments,
   op = "auto",
   max_factor = 12L,
+  problems_side = c("left", "right"),
   margin = unit(0.25, "in"),
   gp = gpar(col = "black", fill = "black", lwd = 2),
   name = NULL,
@@ -21,6 +22,13 @@ math problems are generated from; any later elements
 are drawn in the number grid.}
 
 \item{op, max_factor}{Passed to \code{\link[=generate_math_problems]{generate_math_problems()}}.}
+
+\item{problems_side}{Which panel the math problems go on: \code{"left"}
+(default, so a right-handed kid drawing on the
+grid doesn't cover their math solutions with
+their writing hand) or \code{"right"} (likely
+preferable for a left-handed kid).  The number
+grid goes on the other panel.}
 
 \item{margin}{Printer margin around each panel (a \code{\link[grid:unit]{grid::unit()}}).}
 

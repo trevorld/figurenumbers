@@ -20,6 +20,12 @@
 #'                 math problems are generated from; any later elements
 #'                 are drawn in the number grid.
 #' @param op,max_factor Passed to [generate_math_problems()].
+#' @param problems_side Which panel the math problems go on: `"left"`
+#'                      (default, so a right-handed kid drawing on the
+#'                      grid doesn't cover their math solutions with
+#'                      their writing hand) or `"right"` (likely
+#'                      preferable for a left-handed kid).  The number
+#'                      grid goes on the other panel.
 #' @param margin Printer margin around each panel (a [grid::unit()]).
 #' @param gp A [grid::gpar()] object.
 #' @param name A character identifier (for the grob).
@@ -45,6 +51,7 @@ puzzleGrob <- function(
 	segments,
 	op = "auto",
 	max_factor = 12L,
+	problems_side = c("left", "right"),
 	margin = unit(0.25, "in"),
 	gp = gpar(col = "black", fill = "black", lwd = 2),
 	name = NULL,
@@ -56,28 +63,30 @@ puzzleGrob <- function(
 		) &&
 			length(segments) >= 1L
 	)
+	problems_side <- match.arg(problems_side)
 	problems <- generate_math_problems(
 		segments[[1L]],
 		op = op,
 		max_factor = max_factor
 	)
+	x_problems <- if (problems_side == "left") 0.25 else 0.75
 	width <- unit(0.5, "npc") - 2 * margin
 	height <- unit(1, "npc") - 2 * margin
-	left <- problemsGrob(
+	problems_panel <- problemsGrob(
 		problems,
 		name = "problems",
-		vp = viewport(x = 0.25, width = width, height = height)
+		vp = viewport(x = x_problems, width = width, height = height)
 	)
-	right <- numberGridGrob(
+	grid_panel <- numberGridGrob(
 		segments = segments[-1L],
 		name = "number_grid",
 		vp = vpStack(
-			viewport(x = 0.75, width = width, height = height),
+			viewport(x = 1 - x_problems, width = width, height = height),
 			viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
 		)
 	)
 	gTree(
-		children = gList(left, right),
+		children = gList(problems_panel, grid_panel),
 		gp = gp,
 		name = name,
 		vp = vp,
