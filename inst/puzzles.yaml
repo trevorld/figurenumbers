@@ -26,3 +26,8 @@
     - [32, 31, 11, 13, 23, 24, 14, 16, 26, 27, 17, 19, 39, 32, 72,
        71, 91, 99, 79, 78, 38]
     - [72, 78]
+- label: pawn
+  credits: Adapted from the Dotaro Font project's chess pawn glyph (U+265F)
+  segments:
+    - [34, 23, 13, 4, 5, 16, 26, 35, 34, 72, 71, 91, 98, 78, 77, 35]
+    - [72, 77]
