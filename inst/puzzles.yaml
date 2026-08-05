@@ -31,3 +31,7 @@
   segments:
     - [34, 23, 13, 4, 5, 16, 26, 35, 34, 72, 71, 91, 98, 78, 77, 35]
     - [72, 77]
+- label: queen
+  credits: Adapted from the Dotaro Font project's chess queen glyph (U+265B)
+  segments:
+    - [93, 62, 31, 43, 25, 47, 39, 68, 97, 93]
