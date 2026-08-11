@@ -35,3 +35,8 @@
   credits: Adapted from the Dotaro Font project's chess queen glyph (U+265B)
   segments:
     - [93, 62, 31, 43, 25, 47, 39, 68, 97, 93]
+- label: club
+  credits: Adapted from the Dotaro Suits font project's club suit glyph (U+2663)
+  segments:
+    - [85, 86, 56, 57, 68, 69, 60, 50, 39, 38, 47, 46, 36, 27, 17, 6, 5,
+       14, 24, 35, 45, 44, 33, 32, 41, 51, 62, 63, 54, 55, 85]
