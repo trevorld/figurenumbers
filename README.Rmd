@@ -52,3 +52,20 @@ library("grid")
 puzzle <- read_puzzles()$rook
 grid.draw(numberGridGrob(puzzle$segments))
 ```
+
+Here we create a two-sided printable PDF of blank number grids to hand-sketch candidate puzzle pictures on before encoding the best ones as `segments` in `inst/puzzles.yaml`.
+
+```{r blank_grids, eval = FALSE}
+library("figurenumbers")
+library("grid")
+cairo_pdf("blank_grids.pdf", width = 11, height = 8.5) # landscape letter
+grid.draw(gridsGrob())
+grid.newpage()
+grid.draw(gridsGrob())
+invisible(dev.off())
+```
+```{r blank_grids_pic, out.width = "80%", fig.width = 11, fig.height = 8.5, echo = FALSE}
+library("figurenumbers")
+library("grid")
+grid.draw(gridsGrob())
+```
