@@ -50,3 +50,17 @@ grid.draw(numberGridGrob(puzzle$segments))
 ```
 
 <img src="man/figures/README-rook_solution-1.png" alt="Drawing of a rook figure"  />
+
+Here we create a two-sided printable PDF of blank number grids to hand-sketch candidate puzzle pictures on before encoding the best ones as `segments` in `inst/puzzles.yaml`.
+
+
+``` r
+library("figurenumbers")
+library("grid")
+cairo_pdf("blank_grids.pdf", width = 11, height = 8.5) # landscape letter
+grid.draw(gridsGrob())
+grid.newpage()
+grid.draw(gridsGrob())
+invisible(dev.off())
+```
+<img src="man/figures/README-blank_grids_pic-1.png" alt="" width="80%" />
